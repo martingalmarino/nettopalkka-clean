@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Bars3Icon, XMarkIcon } from './icons';
 
@@ -10,6 +10,20 @@ interface HamburgerMenuProps {
 
 export function HamburgerMenu({ currentPath }: HamburgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -46,21 +60,25 @@ export function HamburgerMenu({ currentPath }: HamburgerMenuProps) {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-[9999] md:hidden">
           {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
             onClick={closeMenu}
+            style={{ zIndex: 9998 }}
           />
           
           {/* Menu Panel */}
-          <div className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
+          <div 
+            className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
+            style={{ zIndex: 9999 }}
+          >
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-gray-200">
                 <Link 
                   href="/" 
-                  className="text-xl font-bold text-primary-800"
+                  className="text-lg font-bold text-primary-800"
                   onClick={closeMenu}
                 >
                   Nettopalkka.fi
@@ -75,7 +93,7 @@ export function HamburgerMenu({ currentPath }: HamburgerMenuProps) {
               </div>
 
               {/* Navigation Items */}
-              <nav className="flex-1 px-4 py-6">
+              <nav className="flex-1 px-4 py-6 overflow-y-auto">
                 <ul className="space-y-2">
                   {navItems.map((item) => (
                     <li key={item.href}>
