@@ -1,4 +1,4 @@
-import { taxDataFI, MunicipalityData } from './taxDataFI';
+import { taxDataFI, getMunicipalRate, calculateNationalTax as calcNationalTax, getContributionRates } from './taxDataFI';
 
 export interface SalaryInputs {
   grossSalary: number; // Salario bruto anual
@@ -32,38 +32,37 @@ export interface MonthlyBreakdown {
 }
 
 export function calculateSalaryBreakdown(inputs: SalaryInputs): TaxBreakdown {
-  const municipality = taxDataFI.municipalities.find(m => m.slug === inputs.municipality);
-  if (!municipality) {
-    throw new Error(`Municipality ${inputs.municipality} not found`);
-  }
-
   const grossSalary = inputs.grossSalary;
   let deductions = inputs.hasDeductions ? (inputs.deductionAmount || 0) : 0;
   
+  // Obtener tasa municipal
+  const municipalRate = getMunicipalRate(inputs.municipality);
+  
   // Calcular impuesto nacional (progresivo)
-  const nationalTax = calculateNationalTax(grossSalary);
+  const nationalTax = calcNationalTax(grossSalary);
   
   // Calcular impuesto municipal (porcentaje fijo)
-  const municipalTax = (grossSalary * municipality.municipalTaxRate) / 100;
+  const municipalTax = grossSalary * municipalRate;
   
-  // Calcular impuesto de iglesia (si aplica)
-  const churchTax = municipality.churchTaxRate 
-    ? (grossSalary * municipality.churchTaxRate) / 100 
-    : 0;
+  // No hay impuesto de iglesia en la nueva estructura
+  const churchTax = 0;
+  
+  // Obtener tasas de contribuciones
+  const contributions = getContributionRates();
   
   // Calcular contribuciones sociales
   let yelTax = 0;
   let tyelTax = 0;
   
   if (inputs.isEntrepreneur) {
-    yelTax = (grossSalary * taxDataFI.yelRates.min) / 100;
+    yelTax = grossSalary * contributions.YEL;
   } else {
-    tyelTax = (grossSalary * taxDataFI.tyelRate) / 100;
+    tyelTax = grossSalary * contributions.TyEL;
   }
   
   // Seguros sociales
-  const unemploymentInsurance = (grossSalary * taxDataFI.unemploymentInsuranceRate) / 100;
-  const healthInsurance = (grossSalary * taxDataFI.healthInsuranceRate) / 100;
+  const unemploymentInsurance = grossSalary * contributions.unemploymentInsurance;
+  const healthInsurance = grossSalary * contributions.healthInsurance;
   
   // Total de impuestos y contribuciones
   const totalTaxes = nationalTax + municipalTax + churchTax + yelTax + tyelTax + unemploymentInsurance + healthInsurance;
@@ -102,26 +101,7 @@ export function calculateMonthlyBreakdown(inputs: SalaryInputs): MonthlyBreakdow
   };
 }
 
-function calculateNationalTax(grossSalary: number): number {
-  let totalTax = 0;
-  let remainingIncome = grossSalary;
-  
-  for (const bracket of taxDataFI.nationalTaxBrackets) {
-    if (remainingIncome <= 0) break;
-    
-    const taxableInBracket = Math.min(
-      remainingIncome,
-      bracket.max ? bracket.max - bracket.min : remainingIncome
-    );
-    
-    if (taxableInBracket > 0 && grossSalary > bracket.min) {
-      totalTax += (taxableInBracket * bracket.rate) / 100;
-      remainingIncome -= taxableInBracket;
-    }
-  }
-  
-  return totalTax;
-}
+// Esta función ya existe en taxDataFI.ts como calculateNationalTax
 
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('fi-FI', {
@@ -137,13 +117,13 @@ export function formatPercentage(percentage: number): string {
 }
 
 export function getTaxBracketInfo(grossSalary: number): string {
-  for (let i = taxDataFI.nationalTaxBrackets.length - 1; i >= 0; i--) {
-    const bracket = taxDataFI.nationalTaxBrackets[i];
+  for (let i = taxDataFI.nationalBrackets.length - 1; i >= 0; i--) {
+    const bracket = taxDataFI.nationalBrackets[i];
     if (grossSalary > bracket.min) {
       if (bracket.max) {
-        return `${bracket.min.toLocaleString('fi-FI')}€ - ${bracket.max.toLocaleString('fi-FI')}€ (${bracket.rate}%)`;
+        return `${bracket.min.toLocaleString('fi-FI')}€ - ${bracket.max.toLocaleString('fi-FI')}€ (${(bracket.rate * 100)}%)`;
       } else {
-        return `${bracket.min.toLocaleString('fi-FI')}€+ (${bracket.rate}%)`;
+        return `${bracket.min.toLocaleString('fi-FI')}€+ (${(bracket.rate * 100)}%)`;
       }
     }
   }

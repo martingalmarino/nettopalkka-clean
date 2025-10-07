@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { SalaryInputs, calculateMonthlyBreakdown, formatCurrency } from '@/lib/salaryCalc';
-import { taxDataFI } from '@/lib/taxDataFI';
+import { getMunicipalRate } from '@/lib/taxDataFI';
 import { ResultBreakdown } from './ResultBreakdown';
 
 interface CalculatorCardProps {
@@ -169,7 +169,7 @@ export function CalculatorCard({ municipalitySlug, municipalityName }: Calculato
               </div>
               <div className="text-right">
                 <div className="text-lg font-semibold text-primary-600">
-                  {taxDataFI.municipalities.find(m => m.slug === municipalitySlug)?.municipalTaxRate}%
+                  {(getMunicipalRate(municipalitySlug) * 100).toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-500">vuosittain</div>
               </div>

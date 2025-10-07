@@ -127,3 +127,47 @@ export function calculateNationalTax(income: number): number {
 export function getContributionRates(): PensionRates {
   return taxDataFI.contributions;
 }
+
+// Helper function to get municipality data by slug
+export function getMunicipalityBySlug(slug: string) {
+  const rate = getMunicipalRate(slug);
+  const name = getMunicipalityName(slug);
+  return {
+    name: name,
+    slug: slug,
+    municipalTaxRate: rate * 100 // Convert to percentage
+  };
+}
+
+// Helper function to get municipality name by slug
+export function getMunicipalityName(slug: string): string {
+  const municipalityNames: { [key: string]: string } = {
+    'helsinki': 'Helsinki',
+    'espoo': 'Espoo',
+    'vantaa': 'Vantaa',
+    'tampere': 'Tampere',
+    'turku': 'Turku',
+    'oulu': 'Oulu',
+    'jyvaskyla': 'Jyväskylä',
+    'lahti': 'Lahti',
+    'kuopio': 'Kuopio',
+    'pori': 'Pori',
+    'kouvola': 'Kouvola',
+    'joensuu': 'Joensuu',
+    'lappeenranta': 'Lappeenranta',
+    'vaasa': 'Vaasa',
+    'hameenlinna': 'Hämeenlinna',
+    'seinajoki': 'Seinäjoki',
+    'rovaniemi': 'Rovaniemi',
+    'mikkeli': 'Mikkeli',
+    'kotka': 'Kotka',
+    'saloh': 'Salo'
+  };
+  
+  return municipalityNames[slug] || slug.charAt(0).toUpperCase() + slug.slice(1);
+}
+
+// Helper function to get all municipality slugs
+export function getAllMunicipalitySlugs(): string[] {
+  return Object.keys(taxDataFI.municipalRates);
+}

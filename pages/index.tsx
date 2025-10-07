@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { taxDataFI } from '@/lib/taxDataFI';
+import { getAllMunicipalitySlugs, getMunicipalityBySlug } from '@/lib/taxDataFI';
 import { LightningIcon, ChartBarIcon, LockClosedIcon } from '@/components/icons';
 
 export default function Home() {
-  const topMunicipalities = taxDataFI.municipalities.slice(0, 6);
+  const allMunicipalitySlugs = getAllMunicipalitySlugs();
+  const topMunicipalitySlugs = allMunicipalitySlugs.slice(0, 6);
 
   return (
     <>
@@ -85,22 +86,25 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {topMunicipalities.map((municipality) => (
-                <Link
-                  key={municipality.slug}
-                  href={`/fi/nettopalkka-laskuri/${municipality.slug}`}
-                  className="group"
-                >
-                  <div className="card p-6 text-center hover:shadow-xl transition-shadow duration-300">
-                    <div className="font-semibold text-gray-800 group-hover:text-primary-600 transition-colors">
-                      {municipality.name}
+              {topMunicipalitySlugs.map((slug) => {
+                const municipality = getMunicipalityBySlug(slug);
+                return (
+                  <Link
+                    key={slug}
+                    href={`/fi/nettopalkka-laskuri/${slug}`}
+                    className="group"
+                  >
+                    <div className="card p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                      <div className="font-semibold text-gray-800 group-hover:text-primary-600 transition-colors">
+                        {municipality.name}
+                      </div>
+                      <div className="text-sm text-gray-500 mt-1">
+                        {municipality.municipalTaxRate}%
+                      </div>
                     </div>
-                    <div className="text-sm text-gray-500 mt-1">
-                      {municipality.municipalTaxRate}%
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="text-center mt-8">

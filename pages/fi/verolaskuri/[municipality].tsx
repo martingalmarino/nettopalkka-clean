@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { taxDataFI, getMunicipalityBySlug } from '@/lib/taxDataFI';
+import { taxDataFI, getMunicipalityBySlug, getMunicipalityName, getAllMunicipalitySlugs } from '@/lib/taxDataFI';
 import { CalculatorCard } from '@/components/CalculatorCard';
 import { MunicipalityPills } from '@/components/MunicipalityPills';
 import { FAQAccordion } from '@/components/FAQAccordion';
@@ -238,8 +238,9 @@ export default function MunicipalityVerolaskuriPage({ municipality }: Municipali
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = taxDataFI.municipalities.map((municipality) => ({
-    params: { municipality: municipality.slug }
+  const municipalitySlugs = getAllMunicipalitySlugs();
+  const paths = municipalitySlugs.map((slug) => ({
+    params: { municipality: slug }
   }));
 
   return {
