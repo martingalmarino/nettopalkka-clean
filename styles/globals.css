@@ -15,15 +15,15 @@
 
 @layer components {
   .btn-primary {
-    @apply w-full bg-primary-800 hover:bg-primary-900 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply w-full bg-primary-800 hover:bg-primary-900 text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
   }
   
   .btn-secondary {
-    @apply w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-full border border-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl border border-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
   }
   
   .input-field {
-    @apply w-full h-12 px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 text-gray-800 placeholder-gray-400;
+    @apply w-full h-10 sm:h-12 px-3 sm:px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 text-gray-800 placeholder-gray-400 text-sm sm:text-base;
   }
   
   .card {
@@ -31,11 +31,11 @@
   }
   
   .trust-chip {
-    @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-success-50 text-success-700 border border-success-200;
+    @apply inline-flex items-center px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-success-50 text-success-700 border border-success-200;
   }
   
   .municipality-pill {
-    @apply inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
   }
 }
 

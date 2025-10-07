@@ -57,27 +57,27 @@ export function ResultBreakdown({ breakdown, monthly }: ResultBreakdownProps) {
   }
 
   return (
-    <div className="space-y-6 animate-slide-up">
+    <div className="space-y-4 sm:space-y-6 animate-slide-up">
       {/* Main Results */}
-      <div className="bg-gradient-to-r from-success-50 to-primary-50 rounded-2xl p-6 border border-success-200">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="bg-gradient-to-r from-success-50 to-primary-50 rounded-2xl p-4 sm:p-6 border border-success-200">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-success-600">
+            <div className="text-xl sm:text-2xl font-bold text-success-600">
               {formatCurrency(monthly.netMonthly)}
             </div>
-            <div className="text-sm text-gray-600">Nettopalkka / kuukausi</div>
+            <div className="text-xs sm:text-sm text-gray-600">Nettopalkka / kuukausi</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary-600">
+            <div className="text-xl sm:text-2xl font-bold text-primary-600">
               {formatCurrency(monthly.taxMonthly)}
             </div>
-            <div className="text-sm text-gray-600">Verot ja maksut / kuukausi</div>
+            <div className="text-xs sm:text-sm text-gray-600">Verot ja maksut / kuukausi</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-800">
+            <div className="text-xl sm:text-2xl font-bold text-gray-800">
               {formatPercentage(breakdown.effectiveTaxRate)}
             </div>
-            <div className="text-sm text-gray-600">Kokonaisveroaste</div>
+            <div className="text-xs sm:text-sm text-gray-600">Kokonaisveroaste</div>
           </div>
         </div>
       </div>

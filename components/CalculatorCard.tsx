@@ -46,14 +46,14 @@ export function CalculatorCard({ municipalitySlug, municipalityName }: Calculato
   };
 
   return (
-    <div className="card p-8 max-w-2xl mx-auto">
-      <div className="space-y-6">
+    <div className="card p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
             Nettopalkka Laskuri
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Laske nettopalkkasi {municipalityName}ssa
           </p>
         </div>
@@ -70,16 +70,16 @@ export function CalculatorCard({ municipalitySlug, municipalityName }: Calculato
                 type="number"
                 value={inputs.grossSalary}
                 onChange={(e) => handleInputChange('grossSalary', Number(e.target.value))}
-                className="input-field pr-12"
+                className="input-field pr-12 text-sm sm:text-base"
                 placeholder="50000"
                 min="0"
                 step="1000"
               />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
+              <span className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm sm:text-base">
                 €
               </span>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Syötä vuosittainen bruttopalkkasi
             </p>
           </div>
@@ -181,7 +181,7 @@ export function CalculatorCard({ municipalitySlug, municipalityName }: Calculato
         <button
           onClick={handleCalculate}
           disabled={isCalculating || inputs.grossSalary <= 0}
-          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base py-3 sm:py-4 px-6 sm:px-8 w-full"
         >
           {isCalculating ? (
             <div className="flex items-center justify-center space-x-2">
