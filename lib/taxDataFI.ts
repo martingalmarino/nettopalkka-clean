@@ -135,7 +135,7 @@ export function getMunicipalityBySlug(slug: string) {
   return {
     name: name,
     slug: slug,
-    municipalTaxRate: rate * 100 // Convert to percentage
+    municipalTaxRate: parseFloat((rate * 100).toFixed(2)) // Convert to percentage and round to 2 decimals
   };
 }
 
