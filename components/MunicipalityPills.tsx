@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { taxDataFI } from '@/lib/taxDataFI';
+import { getAllMunicipalitySlugs, getMunicipalityBySlug } from '@/lib/taxDataFI';
 
 interface MunicipalityPillsProps {
   currentMunicipality: string;
@@ -10,12 +10,13 @@ interface MunicipalityPillsProps {
 
 export function MunicipalityPills({ currentMunicipality, type }: MunicipalityPillsProps) {
   // Obtener los municipios principales (primeros 10)
-  const mainMunicipalities = taxDataFI.municipalities.slice(0, 10);
+  const allMunicipalitySlugs = getAllMunicipalitySlugs();
+  const mainMunicipalitySlugs = allMunicipalitySlugs.slice(0, 10);
   
-  // Filtrar el municipio actual
-  const otherMunicipalities = mainMunicipalities.filter(
-    m => m.slug !== currentMunicipality
-  );
+  // Filtrar el municipio actual y convertir a objetos
+  const otherMunicipalities = mainMunicipalitySlugs
+    .filter(slug => slug !== currentMunicipality)
+    .map(slug => getMunicipalityBySlug(slug));
 
   const getHref = (municipalitySlug: string) => {
     const basePath = type === 'nettopalkka' ? '/fi/nettopalkka-laskuri' : '/fi/verolaskuri';

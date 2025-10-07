@@ -1,10 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { taxDataFI } from '@/lib/taxDataFI';
+import { getAllMunicipalitySlugs, getMunicipalityBySlug } from '@/lib/taxDataFI';
 
 export default function KaikkiKunnatPage() {
   const title = 'Kaikki Kunnat - Nettopalkka Laskuri Suomi';
   const description = 'Nettopalkka laskuri kaikissa suomalaisissa kunnissa. Vertaile veroprosentteja ja laske nettopalkkasi missä tahansa kunnassa Suomessa.';
+  
+  const municipalitySlugs = getAllMunicipalitySlugs();
 
   return (
     <>
@@ -68,7 +70,9 @@ export default function KaikkiKunnatPage() {
         <section className="py-8 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {taxDataFI.municipalities.map((municipality) => (
+              {municipalitySlugs.map((slug) => {
+                const municipality = getMunicipalityBySlug(slug);
+                return (
                 <div key={municipality.slug} className="card p-6 hover:shadow-xl transition-shadow duration-300">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-800">
@@ -113,7 +117,8 @@ export default function KaikkiKunnatPage() {
                     </Link>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -130,25 +135,37 @@ export default function KaikkiKunnatPage() {
             <div className="grid md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600 mb-2">
-                  {taxDataFI.municipalities.filter(m => m.municipalTaxRate <= 19).length}
+                  {municipalitySlugs.filter(slug => {
+                    const municipality = getMunicipalityBySlug(slug);
+                    return municipality.municipalTaxRate <= 19;
+                  }).length}
                 </div>
                 <div className="text-sm text-gray-600">Alle 19%</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">
-                  {taxDataFI.municipalities.filter(m => m.municipalTaxRate > 19 && m.municipalTaxRate <= 20.5).length}
+                  {municipalitySlugs.filter(slug => {
+                    const municipality = getMunicipalityBySlug(slug);
+                    return municipality.municipalTaxRate > 19 && municipality.municipalTaxRate <= 20.5;
+                  }).length}
                 </div>
                 <div className="text-sm text-gray-600">19-20.5%</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-yellow-600 mb-2">
-                  {taxDataFI.municipalities.filter(m => m.municipalTaxRate > 20.5 && m.municipalTaxRate <= 21.5).length}
+                  {municipalitySlugs.filter(slug => {
+                    const municipality = getMunicipalityBySlug(slug);
+                    return municipality.municipalTaxRate > 20.5 && municipality.municipalTaxRate <= 21.5;
+                  }).length}
                 </div>
                 <div className="text-sm text-gray-600">20.5-21.5%</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-red-600 mb-2">
-                  {taxDataFI.municipalities.filter(m => m.municipalTaxRate > 21.5).length}
+                  {municipalitySlugs.filter(slug => {
+                    const municipality = getMunicipalityBySlug(slug);
+                    return municipality.municipalTaxRate > 21.5;
+                  }).length}
                 </div>
                 <div className="text-sm text-gray-600">Yli 21.5%</div>
               </div>
@@ -159,10 +176,13 @@ export default function KaikkiKunnatPage() {
                 Keskimääräinen kunnallinen vero
               </h3>
               <div className="text-3xl font-bold text-primary-600 mb-2">
-                {(taxDataFI.municipalities.reduce((sum, m) => sum + m.municipalTaxRate, 0) / taxDataFI.municipalities.length).toFixed(1)}%
+                {(municipalitySlugs.reduce((sum, slug) => {
+                  const municipality = getMunicipalityBySlug(slug);
+                  return sum + municipality.municipalTaxRate;
+                }, 0) / municipalitySlugs.length).toFixed(1)}%
               </div>
               <p className="text-sm text-gray-600">
-                Kaikkien {taxDataFI.municipalities.length} kunnan keskiarvo vuonna 2025
+                Kaikkien {municipalitySlugs.length} kunnan keskiarvo vuonna 2025
               </p>
             </div>
           </div>

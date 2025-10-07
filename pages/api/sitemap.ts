@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { taxDataFI } from '@/lib/taxDataFI';
+import { getAllMunicipalitySlugs } from '@/lib/taxDataFI';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const baseUrl = 'https://nettopalkka.fi';
@@ -21,15 +21,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   ];
 
   // Páginas dinámicas de municipios
-  const municipalityPages = taxDataFI.municipalities.flatMap(municipality => [
+  const municipalitySlugs = getAllMunicipalitySlugs();
+  const municipalityPages = municipalitySlugs.flatMap(slug => [
     {
-      url: `${baseUrl}/fi/nettopalkka-laskuri/${municipality.slug}`,
+      url: `${baseUrl}/fi/nettopalkka-laskuri/${slug}`,
       lastmod: new Date().toISOString().split('T')[0],
       changefreq: 'monthly',
       priority: '0.9'
     },
     {
-      url: `${baseUrl}/fi/verolaskuri/${municipality.slug}`,
+      url: `${baseUrl}/fi/verolaskuri/${slug}`,
       lastmod: new Date().toISOString().split('T')[0],
       changefreq: 'monthly',
       priority: '0.9'
