@@ -1,0 +1,96 @@
+name: Update Tax Data
+
+on:
+  schedule:
+    # Run every January 1st at 9:00 AM UTC (11:00 AM Helsinki time)
+    - cron: '0 9 1 1 *'
+  workflow_dispatch: # Allow manual execution
+    inputs:
+      force_update:
+        description: 'Force update even if no changes detected'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  update-tax-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tax data scraping
+        run: npm run scrape:all
+        env:
+          NODE_ENV: production
+          
+      - name: Run tests
+        run: npm test
+        
+      - name: Check for changes
+        id: check-changes
+        run: |
+          if git diff --quiet lib/taxDataFI.ts scripts/data/; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in tax data"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in tax data"
+            git diff --name-only lib/taxDataFI.ts scripts/data/
+          fi
+          
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.changes == 'true' || github.event.inputs.force_update == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add lib/taxDataFI.ts scripts/data/
+          
+          # Create commit message with current year
+          CURRENT_YEAR=$(date +%Y)
+          git commit -m "Update tax data for $CURRENT_YEAR
+
+          - Updated municipal tax rates
+          - Updated national tax brackets  
+          - Updated pension and social contribution rates
+          - Generated consolidated taxDataFI.ts
+          
+          Automated update via GitHub Actions"
+          
+          git push
+          
+      - name: Create deployment trigger
+        if: steps.check-changes.outputs.changes == 'true' || github.event.inputs.force_update == 'true'
+        run: |
+          echo "Tax data updated successfully for $(date +%Y)"
+          echo "Deployment will be triggered automatically by Vercel"
+          
+      - name: No changes notification
+        if: steps.check-changes.outputs.changes == 'false' && github.event.inputs.force_update != 'true'
+        run: |
+          echo "No changes detected in tax data for $(date +%Y)"
+          echo "Current data is up to date"
+          
+  notify-on-failure:
+    runs-on: ubuntu-latest
+    needs: update-tax-data
+    if: failure()
+    
+    steps:
+      - name: Notify on failure
+        run: |
+          echo "Tax data update failed!"
+          echo "Please check the logs and run manually if needed:"
+          echo "npm run scrape:all"

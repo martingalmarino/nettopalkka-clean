@@ -1,92 +1,129 @@
-export interface MunicipalityData {
-  name: string;
-  slug: string;
-  municipalTaxRate: number; // Porcentaje
-  churchTaxRate?: number; // Porcentaje (opcional)
-}
+// Auto-generated tax data for Finland
+// Generated on: 07.10.2025 klo 18.22
+// Data sources: https://www.vero.fi/henkiloasiakkaat/verokortti-ja-veroilmoitus/kunnallisvero/, https://www.vero.fi/henkiloasiakkaat/verokortti-ja-veroilmoitus/tuloveroasteikko/, https://www.tyoelake.fi/
 
-export interface TaxBrackets {
+export interface TaxBracket {
   min: number;
-  max?: number;
+  max: number | null;
   rate: number;
 }
 
-export interface TaxData {
-  nationalTaxBrackets: TaxBrackets[];
-  municipalities: MunicipalityData[];
-  yelRates: {
-    min: number;
-    max: number;
-  };
-  tyelRate: number;
-  unemploymentInsuranceRate: number;
-  healthInsuranceRate: number;
+export interface MunicipalRate {
+  [key: string]: number;
 }
 
-export const taxDataFI: TaxData = {
-  // Brackets de impuesto nacional 2025 (aproximados)
-  nationalTaxBrackets: [
-    { min: 0, max: 22000, rate: 0 },
-    { min: 22000, max: 33000, rate: 6 },
-    { min: 33000, max: 47000, rate: 17.25 },
-    { min: 47000, max: 81000, rate: 21.25 },
-    { min: 81000, rate: 31.25 }
+export interface PensionRates {
+  TyEL: number;
+  YEL: number;
+  healthInsurance: number;
+  unemploymentInsurance: number;
+}
+
+export interface TaxDataFI {
+  nationalBrackets: TaxBracket[];
+  municipalRates: MunicipalRate;
+  contributions: PensionRates;
+  metadata: {
+    lastUpdated: string;
+    dataSources: string[];
+    version: string;
+  };
+}
+
+export const taxDataFI: TaxDataFI = {
+  "nationalBrackets": [
+    {
+      "min": 0,
+      "max": 19999,
+      "rate": 0
+    },
+    {
+      "min": 20000,
+      "max": 40000,
+      "rate": 0.065
+    },
+    {
+      "min": 40001,
+      "max": 70000,
+      "rate": 0.125
+    },
+    {
+      "min": 70001,
+      "max": null,
+      "rate": 0.175
+    }
   ],
-  
-  // Principales municipios de Finlandia con sus tasas de impuesto municipal
-  municipalities: [
-    { name: 'Helsinki', slug: 'helsinki', municipalTaxRate: 18.0 },
-    { name: 'Espoo', slug: 'espoo', municipalTaxRate: 18.5 },
-    { name: 'Tampere', slug: 'tampere', municipalTaxRate: 20.5 },
-    { name: 'Vantaa', slug: 'vantaa', municipalTaxRate: 19.0 },
-    { name: 'Oulu', slug: 'oulu', municipalTaxRate: 20.0 },
-    { name: 'Turku', slug: 'turku', municipalTaxRate: 20.0 },
-    { name: 'Jyväskylä', slug: 'jyvaskyla', municipalTaxRate: 20.5 },
-    { name: 'Lahti', slug: 'lahti', municipalTaxRate: 21.0 },
-    { name: 'Kuopio', slug: 'kuopio', municipalTaxRate: 21.0 },
-    { name: 'Pori', slug: 'pori', municipalTaxRate: 21.0 },
-    { name: 'Kouvola', slug: 'kouvola', municipalTaxRate: 21.5 },
-    { name: 'Joensuu', slug: 'joensuu', municipalTaxRate: 21.5 },
-    { name: 'Lappeenranta', slug: 'lappeenranta', municipalTaxRate: 20.5 },
-    { name: 'Hämeenlinna', slug: 'hameenlinna', municipalTaxRate: 21.0 },
-    { name: 'Vaasa', slug: 'vaasa', municipalTaxRate: 20.5 },
-    { name: 'Seinäjoki', slug: 'seinajoki', municipalTaxRate: 21.0 },
-    { name: 'Rovaniemi', slug: 'rovaniemi', municipalTaxRate: 21.5 },
-    { name: 'Mikkeli', slug: 'mikkeli', municipalTaxRate: 21.5 },
-    { name: 'Kotka', slug: 'kotka', municipalTaxRate: 21.0 },
-    { name: 'Salo', slug: 'salo', municipalTaxRate: 21.0 },
-    { name: 'Porvoo', slug: 'porvoo', municipalTaxRate: 20.0 },
-    { name: 'Lohja', slug: 'lohja', municipalTaxRate: 20.5 },
-    { name: 'Hyvinkää', slug: 'hyvinkaa', municipalTaxRate: 20.5 },
-    { name: 'Nurmijärvi', slug: 'nurmijarvi', municipalTaxRate: 19.5 },
-    { name: 'Järvenpää', slug: 'jarvenpaa', municipalTaxRate: 20.0 },
-    { name: 'Kirkkonummi', slug: 'kirkkonummi', municipalTaxRate: 19.0 },
-    { name: 'Tuusula', slug: 'tuusula', municipalTaxRate: 20.0 },
-    { name: 'Kerava', slug: 'kerava', municipalTaxRate: 19.5 },
-    { name: 'Kauniainen', slug: 'kauniainen', municipalTaxRate: 17.5 },
-    { name: 'Vihti', slug: 'vihti', municipalTaxRate: 20.5 }
-  ],
-  
-  // Tasas de contribuciones sociales 2025
-  yelRates: {
-    min: 24.1, // Mínimo para YEL
-    max: 24.1  // Máximo para YEL
+  "municipalRates": {
+    "helsinki": 0.176,
+    "espoo": 0.17,
+    "vantaa": 0.175,
+    "tampere": 0.195,
+    "turku": 0.185,
+    "oulu": 0.19,
+    "jyvaskyla": 0.195,
+    "lahti": 0.195,
+    "kuopio": 0.195,
+    "pori": 0.195,
+    "kouvola": 0.195,
+    "joensuu": 0.195,
+    "lappeenranta": 0.195,
+    "vaasa": 0.195,
+    "hameenlinna": 0.195,
+    "seinajoki": 0.195,
+    "rovaniemi": 0.195,
+    "mikkeli": 0.195,
+    "kotka": 0.195,
+    "saloh": 0.195
   },
-  
-  tyelRate: 7.15, // TyEL para empleados
-  unemploymentInsuranceRate: 0.69, // Seguro de desempleo
-  healthInsuranceRate: 2.04 // Seguro de salud
+  "contributions": {
+    "TyEL": 0.0715,
+    "YEL": 0.245,
+    "healthInsurance": 0.014,
+    "unemploymentInsurance": 0.0125
+  },
+  "metadata": {
+    "lastUpdated": "2025-10-07T15:22:47.845Z",
+    "dataSources": [
+      "https://www.vero.fi/henkiloasiakkaat/verokortti-ja-veroilmoitus/kunnallisvero/",
+      "https://www.vero.fi/henkiloasiakkaat/verokortti-ja-veroilmoitus/tuloveroasteikko/",
+      "https://www.tyoelake.fi/"
+    ],
+    "version": "1.0.0"
+  }
 };
 
-export function getMunicipalityBySlug(slug: string): MunicipalityData | undefined {
-  return taxDataFI.municipalities.find(m => m.slug === slug);
+// Helper function to get municipal rate by name
+export function getMunicipalRate(municipality: string): number {
+  const normalizedName = municipality.toLowerCase().replace(/[äöå]/g, (char) => {
+    const map: { [key: string]: string } = { 'ä': 'a', 'ö': 'o', 'å': 'a' };
+    return map[char] || char;
+  }).replace(/[^a-z0-9]/g, '');
+  
+  return taxDataFI.municipalRates[normalizedName] || taxDataFI.municipalRates['helsinki'] || 0.175;
 }
 
-export function getAllMunicipalitySlugs(): string[] {
-  return taxDataFI.municipalities.map(m => m.slug);
+// Helper function to get tax bracket for income
+export function getTaxBracket(income: number): TaxBracket | null {
+  return taxDataFI.nationalBrackets.find(bracket => 
+    income >= bracket.min && (bracket.max === null || income <= bracket.max)
+  ) || null;
 }
 
-export function getMunicipalityName(slug: string): string {
-  const municipality = getMunicipalityBySlug(slug);
-  return municipality ? municipality.name : slug;
+// Helper function to calculate national tax
+export function calculateNationalTax(income: number): number {
+  let totalTax = 0;
+  
+  for (const bracket of taxDataFI.nationalBrackets) {
+    if (income > bracket.min) {
+      const taxableInBracket = Math.min(income, bracket.max || income) - bracket.min;
+      totalTax += taxableInBracket * bracket.rate;
+    }
+  }
+  
+  return totalTax;
+}
+
+// Helper function to get contribution rates
+export function getContributionRates(): PensionRates {
+  return taxDataFI.contributions;
 }
