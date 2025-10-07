@@ -1,9 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { getAllMunicipalitySlugs, getMunicipalityBySlug } from '@/lib/taxDataFI';
 import { LightningIcon, ChartBarIcon, LockClosedIcon } from '@/components/icons';
+import { HamburgerMenu } from '@/components/HamburgerMenu';
 
 export default function Home() {
+  const router = useRouter();
   const allMunicipalitySlugs = getAllMunicipalitySlugs();
   const topMunicipalitySlugs = allMunicipalitySlugs.slice(0, 6);
 
@@ -39,17 +42,7 @@ export default function Home() {
                 </Link>
               </nav>
               {/* Mobile Navigation */}
-              <nav className="flex md:hidden space-x-3">
-                <Link href="/fi/nettopalkka-laskuri" className="text-xs text-gray-600 hover:text-primary-600 transition-colors px-2 py-1">
-                  Nettopalkka
-                </Link>
-                <Link href="/fi/verolaskuri" className="text-xs text-gray-600 hover:text-primary-600 transition-colors px-2 py-1">
-                  Vero
-                </Link>
-                <Link href="/fi/kaikki-kunnat" className="text-xs text-gray-600 hover:text-primary-600 transition-colors px-2 py-1">
-                  Kunnat
-                </Link>
-              </nav>
+              <HamburgerMenu currentPath={router.pathname} />
             </div>
           </div>
         </header>

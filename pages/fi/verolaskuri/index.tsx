@@ -1,8 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { getAllMunicipalitySlugs, getMunicipalityBySlug } from '@/lib/taxDataFI';
+import { HamburgerMenu } from '@/components/HamburgerMenu';
 
 export default function VeroIndex() {
+  const router = useRouter();
   const municipalitySlugs = getAllMunicipalitySlugs();
   const topMunicipalitySlugs = municipalitySlugs.slice(0, 12);
 
@@ -37,17 +40,7 @@ export default function VeroIndex() {
                 </Link>
               </nav>
               {/* Mobile Navigation */}
-              <nav className="flex md:hidden space-x-3">
-                <Link href="/fi/nettopalkka-laskuri" className="text-xs text-gray-600 hover:text-primary-600 transition-colors px-2 py-1">
-                  Nettopalkka
-                </Link>
-                <Link href="/fi/verolaskuri" className="text-xs text-primary-600 font-medium px-2 py-1">
-                  Vero
-                </Link>
-                <Link href="/fi/kaikki-kunnat" className="text-xs text-gray-600 hover:text-primary-600 transition-colors px-2 py-1">
-                  Kunnat
-                </Link>
-              </nav>
+              <HamburgerMenu currentPath={router.pathname} />
             </div>
           </div>
         </header>

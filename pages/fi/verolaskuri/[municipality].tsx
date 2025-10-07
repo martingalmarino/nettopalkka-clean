@@ -1,10 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { taxDataFI, getMunicipalityBySlug, getMunicipalityName, getAllMunicipalitySlugs } from '@/lib/taxDataFI';
 import { CalculatorCard } from '@/components/CalculatorCard';
 import { MunicipalityPills } from '@/components/MunicipalityPills';
 import { FAQAccordion } from '@/components/FAQAccordion';
+import { HamburgerMenu } from '@/components/HamburgerMenu';
 
 interface MunicipalityPageProps {
   municipality: {
@@ -15,6 +17,7 @@ interface MunicipalityPageProps {
 }
 
 export default function MunicipalityVerolaskuriPage({ municipality }: MunicipalityPageProps) {
+  const router = useRouter();
   const title = `Verolaskuri ${municipality.name} - Laske verot ja veroaste`;
   const description = `Laske verosi ${municipality.name}ssa. Ilmainen vero laskuri kunnallisen veroprosentin ${municipality.municipalTaxRate}% kanssa. Sisältää kansalliset verot ja maksut.`;
 
@@ -42,20 +45,24 @@ export default function MunicipalityVerolaskuriPage({ municipality }: Municipali
         {/* Header */}
         <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
+            <div className="flex justify-between items-center h-14 sm:h-16">
               <div className="flex items-center">
-                <Link href="/" className="text-2xl font-bold text-primary-800">
+                <Link href="/" className="text-lg sm:text-xl lg:text-2xl font-bold text-primary-800">
                   Nettopalkka.fi
                 </Link>
               </div>
-              <nav className="hidden md:flex space-x-8">
-                <Link href="/fi/nettopalkka-laskuri" className="text-gray-600 hover:text-primary-600">
+              <nav className="hidden md:flex space-x-6 lg:space-x-8">
+                <Link href="/fi/nettopalkka-laskuri" className="text-sm lg:text-base text-gray-600 hover:text-primary-600 transition-colors">
                   Nettopalkka Laskuri
                 </Link>
-                <Link href="/fi/verolaskuri" className="text-gray-600 hover:text-primary-600">
+                <Link href="/fi/verolaskuri" className="text-sm lg:text-base text-primary-600 font-medium">
                   Vero Laskuri
                 </Link>
+                <Link href="/fi/kaikki-kunnat" className="text-sm lg:text-base text-gray-600 hover:text-primary-600 transition-colors">
+                  Kaikki Kunnat
+                </Link>
               </nav>
+              <HamburgerMenu currentPath={router.pathname} />
             </div>
           </div>
         </header>
