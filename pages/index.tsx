@@ -62,10 +62,10 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/fi/nettopalkka-laskuri/helsinki" className="btn-primary">
+              <Link href="/fi/nettopalkka-laskuri" className="btn-primary">
                 Laske Nettopalkka
               </Link>
-              <Link href="/fi/verolaskuri/helsinki" className="btn-secondary">
+              <Link href="/fi/verolaskuri" className="btn-secondary">
                 Vero Laskuri
               </Link>
             </div>
