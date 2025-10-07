@@ -14,7 +14,7 @@ export default function NettopalkkaIndex() {
       <Head>
         <title>Nettopalkka Laskuri - Laske verot ja nettopalkka</title>
         <meta name="description" content="Laske nettopalkkasi ja verot Suomessa. Ilmainen nettopalkka laskuri kaikille suomalaisille kunnille." />
-        <link rel="canonical" href="https://nettopalkka.fi/fi/nettopalkka-laskuri" />
+        <link rel="canonical" href="https://www.verolaskuri.com/fi/nettopalkka-laskuri" />
       </Head>
 
       <div className="min-h-screen bg-hero-gradient">

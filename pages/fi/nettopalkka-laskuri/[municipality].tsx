@@ -27,13 +27,13 @@ export default function MunicipalityNettopalkkaPage({ municipality }: Municipali
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={`nettopalkka, ${municipality.name}, verolaskuri, palkka laskuri, kunnallinen vero, ${municipality.municipalTaxRate}%`} />
-        <link rel="canonical" href={`https://nettopalkka.fi/fi/nettopalkka-laskuri/${municipality.slug}`} />
+        <link rel="canonical" href={`https://www.verolaskuri.com/fi/nettopalkka-laskuri/${municipality.slug}`} />
         
         {/* Open Graph */}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://nettopalkka.fi/fi/nettopalkka-laskuri/${municipality.slug}`} />
+        <meta property="og:url" content={`https://www.verolaskuri.com/fi/nettopalkka-laskuri/${municipality.slug}`} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />

@@ -14,7 +14,7 @@ export default function VeroIndex() {
       <Head>
         <title>Vero Laskuri - Laske verot ja nettopalkka</title>
         <meta name="description" content="Laske verot ja nettopalkkasi Suomessa. Ilmainen vero laskuri kaikille suomalaisille kunnille." />
-        <link rel="canonical" href="https://nettopalkka.fi/fi/verolaskuri" />
+        <link rel="canonical" href="https://www.verolaskuri.com/fi/verolaskuri" />
       </Head>
 
       <div className="min-h-screen bg-hero-gradient">

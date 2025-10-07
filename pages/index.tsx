@@ -16,7 +16,7 @@ export default function Home() {
         <title>Nettopalkka Laskuri Suomi - Laske verot ja nettopalkka</title>
         <meta name="description" content="Laske nettopalkkasi ja verot Suomessa. Ilmainen nettopalkka laskuri kaikille suomalaisille kunnille. Sisältää YEL/TyEL maksut ja ajantasaiset veroprosentit." />
         <meta name="keywords" content="nettopalkka, verolaskuri, palkka laskuri, suomi, verot, YEL, TyEL" />
-        <link rel="canonical" href="https://nettopalkka.fi" />
+        <link rel="canonical" href="https://www.verolaskuri.com" />
       </Head>
 
       <div className="min-h-screen bg-hero-gradient">

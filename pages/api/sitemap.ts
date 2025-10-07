@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getAllMunicipalitySlugs } from '@/lib/taxDataFI';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const baseUrl = 'https://nettopalkka.fi';
+  const baseUrl = 'https://www.verolaskuri.com';
   
   // Páginas estáticas principales
   const staticPages = [

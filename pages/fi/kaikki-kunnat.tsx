@@ -17,7 +17,7 @@ export default function KaikkiKunnatPage() {
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content="kaikki kunnat, nettopalkka laskuri, veroprosentit, suomi, kunnallinen vero" />
-        <link rel="canonical" href="https://nettopalkka.fi/fi/kaikki-kunnat" />
+        <link rel="canonical" href="https://www.verolaskuri.com/fi/kaikki-kunnat" />
       </Head>
 
       <div className="min-h-screen bg-hero-gradient">
