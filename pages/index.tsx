@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { taxDataFI } from '@/lib/taxDataFI';
+import { LightningIcon, ChartBarIcon, LockClosedIcon } from '@/components/icons';
 
 export default function Home() {
   const topMunicipalities = taxDataFI.municipalities.slice(0, 6);
@@ -125,7 +126,7 @@ export default function Home() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">⚡</span>
+                  <LightningIcon className="w-8 h-8 text-primary-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
                   Nopea ja helppo
@@ -138,7 +139,7 @@ export default function Home() {
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">📊</span>
+                  <ChartBarIcon className="w-8 h-8 text-success-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
                   Ajantasaiset tiedot
@@ -151,7 +152,7 @@ export default function Home() {
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🔒</span>
+                  <LockClosedIcon className="w-8 h-8 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
                   Turvallinen

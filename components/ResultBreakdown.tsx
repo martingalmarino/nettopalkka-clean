@@ -1,6 +1,7 @@
 'use client';
 
 import { TaxBreakdown, MonthlyBreakdown, formatCurrency, formatPercentage } from '@/lib/salaryCalc';
+import { ExclamationTriangleIcon } from './icons';
 
 interface ResultBreakdownProps {
   breakdown: TaxBreakdown;
@@ -164,7 +165,9 @@ export function ResultBreakdown({ breakdown, monthly }: ResultBreakdownProps) {
       {/* Disclaimer */}
       <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
         <div className="flex items-start space-x-3">
-          <div className="w-5 h-5 text-yellow-600 mt-0.5">⚠️</div>
+          <div className="w-5 h-5 text-yellow-600 mt-0.5">
+            <ExclamationTriangleIcon className="w-full h-full" />
+          </div>
           <div className="text-sm text-yellow-800">
             <p className="font-medium mb-1">Huomio</p>
             <p>

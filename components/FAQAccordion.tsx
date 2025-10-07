@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { generateFaqForMunicipality, generateFaqJsonLd, FAQItem } from '@/lib/faqJsonLd';
+import { InformationCircleIcon, ChevronDownIcon } from './icons';
 
 interface FAQAccordionProps {
   municipalityName: string;
@@ -54,19 +55,7 @@ export function FAQAccordion({ municipalityName, municipalitySlug }: FAQAccordio
                   <div className={`transform transition-transform duration-200 ${
                     openItems.has(index) ? 'rotate-180' : 'rotate-0'
                   }`}>
-                    <svg
-                      className="w-5 h-5 text-gray-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDownIcon className="w-5 h-5 text-gray-500" />
                   </div>
                 </div>
               </button>
@@ -86,9 +75,11 @@ export function FAQAccordion({ municipalityName, municipalitySlug }: FAQAccordio
           ))}
         </div>
         
-        <div className="mt-6 p-4 bg-blue-50 rounded-xl">
+        <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
           <div className="flex items-start space-x-3">
-            <div className="w-5 h-5 text-blue-600 mt-0.5">ℹ️</div>
+            <div className="w-5 h-5 text-blue-600 mt-0.5">
+              <InformationCircleIcon className="w-full h-full" />
+            </div>
             <div className="text-sm text-blue-800">
               <p className="font-medium mb-1">Lisätietoja</p>
               <p>
