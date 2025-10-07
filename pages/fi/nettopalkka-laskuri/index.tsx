@@ -24,7 +24,7 @@ export default function NettopalkkaIndex() {
             <div className="flex justify-between items-center h-14 sm:h-16">
               <div className="flex items-center">
                 <Link href="/" className="text-lg sm:text-xl lg:text-2xl font-bold text-primary-800">
-                  Nettopalkka.fi
+                  Verolaskuri
                 </Link>
               </div>
               {/* Desktop Navigation */}

@@ -48,7 +48,7 @@ export default function MunicipalityNettopalkkaPage({ municipality }: Municipali
             <div className="flex justify-between items-center h-14 sm:h-16">
               <div className="flex items-center">
                 <Link href="/" className="text-lg sm:text-xl lg:text-2xl font-bold text-primary-800">
-                  Nettopalkka.fi
+                  Verolaskuri
                 </Link>
               </div>
               <nav className="hidden md:flex space-x-6 lg:space-x-8">
@@ -187,7 +187,7 @@ export default function MunicipalityNettopalkkaPage({ municipality }: Municipali
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-4 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4">Nettopalkka.fi</h3>
+                <h3 className="text-xl font-bold mb-4">Verolaskuri</h3>
                 <p className="text-gray-300">
                   Suomen luotettavin nettopalkka ja vero laskuri.
                 </p>
@@ -217,7 +217,7 @@ export default function MunicipalityNettopalkkaPage({ municipality }: Municipali
               </div>
             </div>
             <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Nettopalkka.fi. Kaikki oikeudet pidätetään.</p>
+              <p>&copy; 2025 Verolaskuri. Kaikki oikeudet pidätetään.</p>
             </div>
           </div>
         </footer>

@@ -132,7 +132,7 @@ export function HamburgerMenu({ currentPath }: HamburgerMenuProps) {
               className="text-lg font-bold text-primary-800"
               onClick={closeMenu}
             >
-              Nettopalkka.fi
+              Verolaskuri
             </Link>
             <button
               onClick={closeMenu}
@@ -167,7 +167,7 @@ export function HamburgerMenu({ currentPath }: HamburgerMenuProps) {
           {/* Footer */}
           <div className="p-4 border-t border-gray-200">
             <div className="text-sm text-gray-500 text-center">
-              <p>© 2025 Nettopalkka.fi</p>
+              <p>© 2025 Verolaskuri</p>
               <p className="mt-1">Suomen luotettavin laskuri</p>
             </div>
           </div>

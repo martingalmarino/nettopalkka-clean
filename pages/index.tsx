@@ -26,7 +26,7 @@ export default function Home() {
             <div className="flex justify-between items-center h-14 sm:h-16">
               <div className="flex items-center">
                 <Link href="/" className="text-lg sm:text-xl lg:text-2xl font-bold text-primary-800">
-                  Nettopalkka.fi
+                  Verolaskuri
                 </Link>
               </div>
               {/* Desktop Navigation */}
@@ -181,7 +181,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               <div className="sm:col-span-2 lg:col-span-1">
-                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Nettopalkka.fi</h3>
+                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Verolaskuri</h3>
                 <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                   Suomen luotettavin nettopalkka ja vero laskuri.
                 </p>
@@ -211,7 +211,7 @@ export default function Home() {
               </div>
             </div>
             <div className="border-t border-gray-700 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400">
-              <p className="text-xs sm:text-sm">&copy; 2025 Nettopalkka.fi. Kaikki oikeudet pidätetään.</p>
+              <p className="text-xs sm:text-sm">&copy; 2025 Verolaskuri. Kaikki oikeudet pidätetään.</p>
             </div>
           </div>
         </footer>
