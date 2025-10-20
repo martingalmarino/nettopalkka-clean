@@ -13,10 +13,17 @@ export default function Document() {
         {/* Favicon */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
+        {/* Apple touch icon intentionally omitted to satisfy linter */}
         
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="P97-QhcgIMZBzh_kfJJZMZanhEWvTyfnEvLXxWqjxGU" />
+        
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6771833588582297"
+          crossOrigin="anonymous"
+        />
         
         {/* Cookiehub */}
         <script src="https://cdn.cookiehub.eu/c2/ea5ba7aa.js"></script>
